@@ -8,12 +8,12 @@ module PublicActivity
         self.table_name = PublicActivity.config.table_name
 
         # Define polymorphic association to the parent
-        belongs_to :trackable, :polymorphic => true, -> { with_deleted }
+        belongs_to :trackable, -> { with_deleted }, :polymorphic => true
         with_options(::ActiveRecord::VERSION::MAJOR >= 5 ? { :required => false } : { }) do
           # Define ownership to a resource responsible for this activity
-          belongs_to :owner, :polymorphic => true, -> { with_deleted }
+          belongs_to :owner, -> { with_deleted }, :polymorphic => true
           # Define ownership to a resource targeted by this activity
-          belongs_to :recipient, :polymorphic => true, -> { with_deleted }
+          belongs_to :recipient, -> { with_deleted }, :polymorphic => true
         end
         # Serialize parameters Hash
         serialize :parameters, Hash
